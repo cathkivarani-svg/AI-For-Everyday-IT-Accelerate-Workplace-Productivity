@@ -1,126 +1,97 @@
-"""
-A module that implements tooling to enable easy warnings about deprecations.
-"""
-
-from __future__ import annotations
-
-import logging
+import inspect
 import warnings
-from typing import Any, TextIO
-
-from pip._vendor.packaging.version import parse
-
-from pip import __version__ as current_version  # NOTE: tests patch this name.
-
-DEPRECATION_MSG_PREFIX = "DEPRECATION: "
 
 
-class PipDeprecationWarning(Warning):
+class RemovedInDjango31Warning(DeprecationWarning):
     pass
 
 
-_original_showwarning: Any = None
+class RemovedInDjango40Warning(PendingDeprecationWarning):
+    pass
 
 
-# Warnings <-> Logging Integration
-def _showwarning(
-    message: Warning | str,
-    category: type[Warning],
-    filename: str,
-    lineno: int,
-    file: TextIO | None = None,
-    line: str | None = None,
-) -> None:
-    if file is not None:
-        if _original_showwarning is not None:
-            _original_showwarning(message, category, filename, lineno, file, line)
-    elif issubclass(category, PipDeprecationWarning):
-        # We use a specially named logger which will handle all of the
-        # deprecation messages for pip.
-        logger = logging.getLogger("pip._internal.deprecations")
-        logger.warning(message)
-    else:
-        _original_showwarning(message, category, filename, lineno, file, line)
+RemovedInNextVersionWarning = RemovedInDjango31Warning
 
 
-def install_warning_logger() -> None:
-    # Enable our Deprecation Warnings
-    warnings.simplefilter("default", PipDeprecationWarning, append=True)
+class warn_about_renamed_method:
+    def __init__(self, class_name, old_method_name, new_method_name, deprecation_warning):
+        self.class_name = class_name
+        self.old_method_name = old_method_name
+        self.new_method_name = new_method_name
+        self.deprecation_warning = deprecation_warning
 
-    global _original_showwarning
+    def __call__(self, f):
+        def wrapped(*args, **kwargs):
+            warnings.warn(
+                "`%s.%s` is deprecated, use `%s` instead." %
+                (self.class_name, self.old_method_name, self.new_method_name),
+                self.deprecation_warning, 2)
+            return f(*args, **kwargs)
+        return wrapped
 
-    if _original_showwarning is None:
-        _original_showwarning = warnings.showwarning
-        warnings.showwarning = _showwarning
 
+class RenameMethodsBase(type):
+    """
+    Handles the deprecation paths when renaming a method.
 
-def deprecated(
-    *,
-    reason: str,
-    replacement: str | None,
-    gone_in: str | None,
-    feature_flag: str | None = None,
-    issue: int | None = None,
-) -> None:
-    """Helper to deprecate existing functionality.
+    It does the following:
+        1) Define the new method if missing and complain about it.
+        2) Define the old method if missing.
+        3) Complain whenever an old method is called.
 
-    reason:
-        Textual reason shown to the user about why this functionality has
-        been deprecated. Should be a complete sentence.
-    replacement:
-        Textual suggestion shown to the user about what alternative
-        functionality they can use.
-    gone_in:
-        The version of pip does this functionality should get removed in.
-        Raises an error if pip's current version is greater than or equal to
-        this.
-    feature_flag:
-        Command-line flag of the form --use-feature={feature_flag} for testing
-        upcoming functionality.
-    issue:
-        Issue number on the tracker that would serve as a useful place for
-        users to find related discussion and provide feedback.
+    See #15363 for more details.
     """
 
-    # Determine whether or not the feature is already gone in this version.
-    is_gone = gone_in is not None and parse(current_version) >= parse(gone_in)
+    renamed_methods = ()
 
-    message_parts = [
-        (reason, f"{DEPRECATION_MSG_PREFIX}{{}}"),
-        (
-            gone_in,
-            (
-                "pip {} will enforce this behaviour change."
-                if not is_gone
-                else "Since pip {}, this is no longer supported."
-            ),
-        ),
-        (
-            replacement,
-            "A possible replacement is {}.",
-        ),
-        (
-            feature_flag,
-            (
-                "You can use the flag --use-feature={} to test the upcoming behaviour."
-                if not is_gone
-                else None
-            ),
-        ),
-        (
-            issue,
-            "Discussion can be found at https://github.com/pypa/pip/issues/{}",
-        ),
-    ]
+    def __new__(cls, name, bases, attrs):
+        new_class = super().__new__(cls, name, bases, attrs)
 
-    message = " ".join(
-        format_str.format(value)
-        for value, format_str in message_parts
-        if format_str is not None and value is not None
-    )
+        for base in inspect.getmro(new_class):
+            class_name = base.__name__
+            for renamed_method in cls.renamed_methods:
+                old_method_name = renamed_method[0]
+                old_method = base.__dict__.get(old_method_name)
+                new_method_name = renamed_method[1]
+                new_method = base.__dict__.get(new_method_name)
+                deprecation_warning = renamed_method[2]
+                wrapper = warn_about_renamed_method(class_name, *renamed_method)
 
-    # Raise as an error if this behaviour is deprecated.
-    if is_gone:
-        raise PipDeprecationWarning(message)
+                # Define the new method if missing and complain about it
+                if not new_method and old_method:
+                    warnings.warn(
+                        "`%s.%s` method should be renamed `%s`." %
+                        (class_name, old_method_name, new_method_name),
+                        deprecation_warning, 2)
+                    setattr(base, new_method_name, old_method)
+                    setattr(base, old_method_name, wrapper(old_method))
 
-    warnings.warn(message, category=PipDeprecationWarning, stacklevel=2)
+                # Define the old method as a wrapped call to the new method.
+                if not old_method and new_method:
+                    setattr(base, old_method_name, wrapper(new_method))
+
+        return new_class
+
+
+class DeprecationInstanceCheck(type):
+    def __instancecheck__(self, instance):
+        warnings.warn(
+            "`%s` is deprecated, use `%s` instead." % (self.__name__, self.alternative),
+            self.deprecation_warning, 2
+        )
+        return super().__instancecheck__(instance)
+
+
+class MiddlewareMixin:
+    def __init__(self, get_response=None):
+        self.get_response = get_response
+        super().__init__()
+
+    def __call__(self, request):
+        response = None
+        if hasattr(self, 'process_request'):
+            response = self.process_request(request)
+        response = response or self.get_response(request)
+        if hasattr(self, 'process_response'):
+            response = self.process_response(request, response)
+        return response
