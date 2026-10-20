@@ -1,0 +1,196 @@
+html,body
+{
+    padding: 0;
+    margin: 0;
+}
+
+.common
+{
+    padding: 0;
+    margin: 0;
+}
+
+.login-imgs
+{
+    border-radius: 100%;
+    height: 175px;
+    width: 175px;
+}
+
+.center-panel
+{
+    position: absolute;
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d6d7dc80;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    box-shadow: 0 0 20px 0px #000000a8;
+    transform: translate(-50% , -50%);
+}
+
+.normal-panel
+{
+    position: absolute;
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: #18229680;
+    left: 200px;
+    right: 200px;
+    top: 5%;
+}
+
+.login-Back
+{
+    height: 100vh;
+    background-image: url("../Images/access_policies.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#common-content div
+{
+    padding: 10px;
+}
+
+#common-content div span
+{
+    color: #454348;
+    font-weight: 700;
+}
+
+#common-content div input
+{
+    border: none ;
+}
+
+.reg_body
+{
+    height: 100vh;
+    background-image: url("../Images/iot.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.admin_body
+{
+    height: 100vh;
+    background-image: url("../Images/bgdevice.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.organiser_body {
+    height: 100vh;
+    background-image: url("../Images/dobackground.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.user_body {
+    height: 100vh;
+    background-image: url("../Images/dobackground.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.user_body_content {
+    box-shadow: 0 0 16px 2px #00000085;
+    background: #2bc0e2b5;
+    padding: 20px;
+}
+
+.message_display{
+    background-color: coral;
+    font-size: 18px;
+    color: white;
+}
+
+.boxcontents
+{
+    text-align: left;
+    width: 600px;
+    height: fit-content;
+    position: absolute;
+    margin-top: 25px;
+    box-shadow: 0 0 17px #15674a;
+    background: #4c507da6;
+    padding: 10px;
+    border-radius: 10px;
+}
+    .boxcontents div
+{
+    padding: 10px;
+}
+
+.heading {
+	font-family: Algerian;
+	font-weight: bold;
+	font-size:24px;
+	color: #ec971f;
+}
+
+.sub_title {
+	font-family: "Times New Roman";
+	font-weight: bold;
+	font-size:18px;
+	color: #ffff00;
+}
+
+.title {
+	font-family: "Times New Roman";
+	font-weight: bold;
+	font-size:18px;
+	color: #2b542c;
+}
+
+.templete
+{
+    width: 1350px;
+}
+.clear{
+    overflow: hidden;
+}
+.bodysection
+{
+  height: 85vh;
+}
+.mainsection {
+    background-color: lightgray;
+    width: 1000px;
+    padding: 30PX;
+    float: left;
+    margin: 10px;
+}
+
+.sidebar {
+    width: 305px;
+    background-color: #D3D3D3;
+    padding: 10px;
+    margin: 10px;
+    float: right;
+}
+
+.Semisidebar h2
+{
+   background-color: #2E2E32;
+   padding: 8px;
+   color: white;
+   margin-bottom: 10px;
+   border-bottom: 5px solid #939499;
+   text-align: center;
+}
