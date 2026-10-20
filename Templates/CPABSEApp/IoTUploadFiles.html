@@ -1,0 +1,128 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+
+{% block title %}Upload Files{% endblock %}
+
+{% block Bodycss %}device_body{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style14 {color: #0e4369; font-size: 16px; font-weight: bold; }
+            .style16 {font-size: 12px}
+            .style28 {color: #5f5f5f}
+            .style29 {color: #f3fcff}
+            .style13 {font-size: 12px;
+                      color: #504b4b;
+            }
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/IoTHome">IoT Device</a>
+                </li>
+                <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Upload File</a></h2>
+                            <div class="entry">
+                                <form action="/CPABSEApp/UploadedFiles/" method="post">
+                                    {% csrf_token %}
+                                    <table width="575" border="1" cellpadding="0" cellspacing="0" align="center">
+                                        <tr>
+                                            <td><span class="style30">&nbsp;File Name</span></td>
+                                            <td><input type="text" id="filename" name="filename" size="50" class="box" value="{{ file }}" placeholder="File Name" required="required""/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="style30">&nbsp;File Content</span></td>
+                                            <td><textarea name="contents" id="contents" cols="52" rows="15" class="box">{{ cont }}</textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="style30"><strong>&nbsp;Keywords</strong></span></td>
+                                            <td><input type="text" name="keyword" id="keyword" size="50" class="box" value="{{ keyword }}" placeholder="Access Policy Keywords" required="required"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="style30"><strong>&nbsp;Public Key</strong></span></td>
+                                            <td><input type="text" name="public_key" id="public_key" size="50" class="box"  value="{{ key }}" placeholder="Public Key" required="required"/></td>
+                                        </tr>
+                                        <tr style="height: 75px;">
+                                            <td colspan="2" align="center">
+                                                {% if messages %}
+                                                    <div class="message_display">
+                                                        {% for message in messages %}
+                                                            {% if message.tags %}
+                                                                <p align="center" class="{{ message.tags }}">{{ message }}</p>
+                                                                <script>
+                                                                    alert("{{ message }}")
+                                                                </script>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><div align="center"><input type="submit" name="Submit" value="Upload"/></div></td>
+                                        </tr>
+                                    </table>
+                                    <p align="right">&nbsp;</p>
+                                    <p align="right"><a href="/CPABSEApp/UploadFile">Back</a></p>
+                                </form>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/VerifyFiles">Verify Files</a></li>
+                                    <li><a href="/CPABSEApp/ViewFiles">View My Files</a></li>
+                                    <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+           <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

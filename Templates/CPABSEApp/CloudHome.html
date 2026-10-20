@@ -1,0 +1,85 @@
+{% extends "CPABSEApp/baseDevice.html" %}
+{% load static %}
+
+{% block title %} Cloud Server Home{% endblock %}
+
+{% block Bodycss %} cloud_body {% endblock %}
+
+{% block content %}
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/CloudHome">Cloud Server</a>
+                </li>
+                <li><a href="/CPABSEApp/CloudLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            {% if request.session %}
+                                <h2 class="title"><a href="#">Welcome <b
+                                        style="text-transform: capitalize">{{ sessionDevice }} Server</b> </a></h2>
+                            {% endif %}
+                            <div class="entry">
+                                <p>&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                The Cloud Server (CS) stores encrypted data. The CS performs keyword search operations over encrypted indexes using received trapdoors. The CS cannot decrypt data or learn plaintext keywords due to encryption and hashing.
+                                <br/><p>&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;
+                                The CS returns matching encrypted ciphertexts to the authorized entity after successful search. The Cloud Server provides scalable storage for large volumes of encrypted IoT data.
+                                The Cloud Server verifies trapdoor–index matches according to the defined searchable encryption protocol.
+                                <br/><p>&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                The Cloud Server supports efficient data retrieval while preserving data confidentiality.
+                                The Cloud Server does not possess secret keys and therefore cannot decrypt or modify protected data.<br/>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/CloudHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/CloudViewIoTDevice">View IoT Devices</a></li>
+                                    <li><a href="/CPABSEApp/CloudViewOwners">View Owners</a></li>
+                                    <li><a href="/CPABSEApp/CloudOwnerFiles">Owner Files</a></li>
+                                    <li><a href="/CPABSEApp/CloudLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

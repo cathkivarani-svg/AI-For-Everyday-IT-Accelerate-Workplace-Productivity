@@ -1,0 +1,150 @@
+{% extends "CPABSEApp/baseUser.html" %}
+{% load static %}
+
+{% block title %} Downloaded File{% endblock %}
+
+{% block Bodycss %}owner_body{% endblock %}
+
+{% block content %}
+    <script type='text/javascript'>
+
+        function saveTextAsFile()
+        {
+            var textToWrite = document.getElementById("fileContent").value;
+            var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
+            var fileNameToSaveAs = "File.txt";
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            if (window.webkitURL != null)
+            {
+                // Chrome allows the link to be clicked
+                // without actually adding it to the DOM.
+                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            }
+            else
+            {
+                // Firefox requires the link to be added to the DOM
+                // before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick = destroyClickedElement;
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+            }
+            downloadLink.click();
+        }
+
+        function destroyClickedElement(event)
+        {
+            document.body.removeChild(event.target);
+        }
+    </script>
+
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {font-size: 14px; color: #712B77;}
+            .style3 {font-size: 14px}
+            .style4 {font-size: 20px}
+            .style5 {font-size: 20px; font-weight: bold; color: #712B77;}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/OwnerHome">Data Owner</a>
+                </li>
+                <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" value="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">File To Downloaded</a></h2>
+                            <div class="entry">
+                                    <p align="center" class="style15">&nbsp;</p>
+                                    {% if Message %}
+                                         <p>&nbsp;</p>
+                                        <h1 class="style4">{{ Message }}</h1>
+                                    {% else %}
+                                    <table width="475" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                        <tr>
+                                            <td><div align="center"><span class="style5">File Contents</span></div></td>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td><textarea name="fileContent" id="fileContent" cols="68" rows="20" readonly class="box">{{ fileData.0 }}</textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div align="center" class="style3"><input type="submit" onclick="saveTextAsFile()" value="Download" /></div></td>
+                                        </tr>
+                                    </table>
+                                    {% endif %}
+                                    <p align="center" class="style13">&nbsp;</p>
+                                </form>
+                                <p align="right"><a href="/CPABSEApp/OwnerHome">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/OwnerHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/OwnerProfile">My Profile</a></li>
+                                    <li><a href="/CPABSEApp/OwnerViewFiles">View Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerSearchFiles">Search Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPublicKey">Request Public Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPublicKey">Public Key Response </a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPrivateKey">Request Private Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPrivateKey">Private Key Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqTrapdoor">Generating Trapdoors </a></li>
+                                    <li><a href="/CPABSEApp/OwnerResTrapdoor">Trapdoors Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerPuncturableFile">Puncturable Files </a></li>
+                                    <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+           <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

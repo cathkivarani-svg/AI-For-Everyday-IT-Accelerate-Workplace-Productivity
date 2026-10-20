@@ -1,0 +1,90 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+{% block title %}CP-ABSE{% endblock %}
+
+    <style type="text/css">
+    <!--
+    .style1 {font-size: 24px}
+    .style2 {color: #712B77}
+    -->
+    </style>
+
+{% block Bodycss %} home_body {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><span><a href="/CPABSEApp">Home</a></span></li>
+                <li><a href="/CPABSEApp/IoTLogin">IoT Device</a></li>
+                <li><a href="/CPABSEApp/OwnerLogin">Data Owner</a></li>
+                <li><a href="/CPABSEApp/KgcLogin">KGC</a></li>
+                <li><a href="/CPABSEApp/CloudLogin">Cloud Server</a></li>
+            </ul>
+	</div>
+	<!-- end #menu -->
+	<div id="header">
+		<div id="logo">
+                    <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+	</div>
+	<div id="splash">&nbsp;</div>
+	<!-- end #header -->
+	<div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Introduction</a></h2>
+                            <div class="entry">
+                                <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    The rapid growth of cloud-assisted Internet of Things (IoT) systems has led to the generation and storage of large volumes of sensitive data such as healthcare records, industrial logs, and smart environment information.
+                                    Due to limited storage and processing capabilities of IoT devices, cloud servers are widely used for data storage and management.
+                                    Although encrypting data before outsourcing ensures confidentiality, it introduces significant challenges in terms of efficient data search, fine-grained access control, and secure data deletion.
+                                    Traditional encryption schemes do not support keyword-based search on encrypted data, while existing searchable encryption techniques often lack flexible access control and forward security.
+                                    Moreover, secure deletion of cloud-stored data is difficult, as cloud servers cannot be fully trusted to permanently remove data once it is deleted The proposed system integrates attribute-based encryption with searchable encryption to enable fine-grained access control and secure keyword search over encrypted data.
+                                    In addition, a puncturable encryption mechanism is incorporated to achieve self-controlled and forward-secure data deletion. Using this mechanism, the data owner can invalidate the search capability for specific encrypted data by puncturing the trapdoor with selected labels, without relying on the cloud server or any trusted third party.
+                                    The proposed Pun-CP-ABSE scheme ensures forward security, meaning that once data is deleted, neither past nor future search queries can retrieve the deleted data. Overall, this project provides a secure, flexible, and efficient solution for encrypted data storage, retrieval, and permanent deletion in cloud-based IoT systems.</p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                          <li></li>
+                          <li>
+                            <h2>Menu</h2>
+                              <ul>
+                                  <li><a href="/CPABSEApp/IoTLogin">IoT Device</a></li>
+                                  <li><a href="/CPABSEApp/OwnerLogin">Data Owner</a></li>
+                                  <li><a href="/CPABSEApp/KgcLogin">KGC</a></li>
+                                  <li><a href="/CPABSEApp/CloudLogin">Cloud Server</a></li>
+                              </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+	</div>
+	<!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "CPABSEApp/baseUser.html" %}
+{% load static %}
+
+{% block title %} Change Profile Image {% endblock %}
+
+{% block Bodycss %} owner_body {% endblock %}
+
+{% block content %}
+<div class="common">
+    <div class="col-lg-12 text-center">
+        <h1 style="color: #2b542c;"><u>Upload Profile Image</u></h1>
+    </div>
+    <form action="/CPABSEApp/owner_profile_image/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="common-content" class="common center-panel">
+            {% if askQuery %}
+                {% for User in askQuery %}
+                    <div class="text-center"><img class="login-imgs" src="{{ Owner.ProfileImg }}"></div>
+                {% endfor %}
+            {% endif %}
+            <div> <span>Owner Profile Image</span> <input type="file" class="form-control" name="imgFile" id="imgFile"></div>
+            <div class="col-lg-12 text-center">
+            {% if messages %}
+                <div class="message_display">
+                    {% for message in messages %}
+                        {% if message.tags %}
+                            <p align="center" class="{{ message.tags }}">{{ message }}</p>
+                            <script>
+                                alert("{{ message }}")
+                            </script>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            </div>
+            <div class="col-lg-12 text-center"><input type="submit" value="Submit" class="btn btn-info" name="btnChange"></div>
+        </div>
+    </form>
+</div>
+{% endblock %}

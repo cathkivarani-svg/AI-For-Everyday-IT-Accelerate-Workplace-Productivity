@@ -1,0 +1,144 @@
+{% extends "CPABSEApp/baseUser.html" %}
+{% load static %}
+{% load ctags %}
+{% block title %} Owner Puncturable Files{% endblock %}
+
+{% block Bodycss %}owner_body{% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        function PuncturedFile(id)
+        {
+            if(confirm('Are Your Sure Puncturable File?'))
+            {
+                window.location='/CPABSEApp/OwnerPuncturedFile/'+id
+            }
+        }
+    </script>
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style3 {font-size: 14px}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/OwnerHome">Data Owner</a>
+                </li>
+                <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" value="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Owner Puncturable Files</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <table width="575" border="1.5" align="center" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="25" height="30">
+                                            <div align="center" class="style2"><span class="style3"> ID </span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">File Name </span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">IoT Device</span></div>
+                                        </td>
+                                        <td width="115">
+                                            <div align="center" class="style2"><span class="style3">Date &amp; Time </span></div>
+                                        </td>
+                                        <td width="125">
+                                            <div align="center" class="style2"><span class="style3">Status </span></div>
+                                        </td>
+                                    </tr>
+                                    {% if askQuery %}
+                                        {% for row in askQuery %}
+                                            <tr>
+                                                <td height="28">
+                                                    <div align="center">{{ row.id }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center">{{ row.FileName }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center">{{ row.IoTDevice }}</div>
+                                                </td>
+                                                <td>
+                                                    {% getdate row.id  as udate %}
+                                                    <div align="center"> {{ udate }}</div>
+                                                </td>
+                                                <td>
+                                                    {% if row.FStatus == "Punctured" %}
+                                                        <div style="color: red; text-align: center;">{{ row.FStatus }}</div>
+                                                    {% else %}
+                                                        <div align="center"><a href=javascript:PuncturedFile({{ row.id }})> Puncturable...</a></div>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                                <p>&nbsp;</p>
+                                <p align="right"><a href="/CPABSEApp/OwnerHome">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/OwnerHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/OwnerProfile">My Profile</a></li>
+                                    <li><a href="/CPABSEApp/OwnerSearchFiles">Search Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPublicKey">Request Public Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPublicKey">Public Key Response </a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPrivateKey">Request Private Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPrivateKey">Private Key Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqTrapdoor">Generating Trapdoors </a></li>
+                                    <li><a href="/CPABSEApp/OwnerResTrapdoor">Trapdoors Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerDownloadFile">Download File </a></li>
+                                    <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+           <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

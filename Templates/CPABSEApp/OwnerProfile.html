@@ -1,0 +1,125 @@
+{% extends "CPABSEApp/baseUser.html" %}
+{% load static %}
+
+{% block title %} Owner Profile{% endblock %}
+
+{% block Bodycss %}owner_body{% endblock %}
+
+{% block content %}
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/OwnerHome">Data Owner</a>
+                </li>
+                <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" value="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            {% if request.session %}
+                                <h2 class="title"><a href="#">Welcome <b
+                                        style="text-transform: capitalize">{{ sessionUser }}</b> </a></h2>
+                            {% endif %}
+                            <div class="entry">
+                                <table width="550" height="350" border="1.5" cellpadding="0" cellspacing="0" style="border-collapse: collapse;  margin:10px 10px 10px 10px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:14px;">
+                                    {% if askQuery %}
+                                        {% for Owner in askQuery %}
+                                        <tr>
+                                            <td rowspan="8" ><div style="margin:10px 13px 10px 13px;">
+                                                <input  name="image" type="image" src="{{ Owner.ProfileImg }}" style="width:150px; height:150px;" /></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left" style="margin-left:20px;"><b >Owner Name</b></div></td>
+                                            <td width="175" valign="middle" height="50" style="color:#000000;"><div align="left" style="margin-left:20px;">{{ Owner.Name }}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left" style="margin-left:20px;"><b>E-Mail</b></div></td>
+                                            <td width="175" valign="middle" height="50" style="color:#000000;"><div align="left" style="margin-left:20px;">{{ Owner.Email }}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left" style="margin-left:20px;"><strong >Mobile</strong></div></td>
+                                            <td width="175" valign="middle" height="50"><div align="left" style="margin-left:20px;">{{ Owner.MobileNo }}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left" style="margin-left:20px;"><strong>Date Of Birth</strong></div></td>
+                                            <td width="175" valign="middle" height="50"><div align="left" style="margin-left:20px;">{{ Owner.Dob|date:"F d, Y" }}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left " style="margin-left:20px;"><strong>Address</strong></div></td>
+                                            <td width="175" valign="middle" height="50"><div align="left" style="margin-left:20px;">{{ Owner.Address }}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left " style="margin-left:20px;"><strong>Owner Type</strong></div></td>
+                                            <td width="175" valign="middle" height="50"><div align="left" style="margin-left:20px;">{{ Owner.OwnerType }}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="175" valign="middle" height="50" style="color: #2c83b0;"><div align="left " style="margin-left:20px;"><strong>Pincode</strong></div></td>
+                                            <td width="175" valign="middle" height="50"><div align="left" style="margin-left:20px;">{{ Owner.PinCode }}</div></td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                                <p>&nbsp;</p>
+                                <p align="right"><a href="/CPABSEApp/OwnerHome">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/OwnerHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/OwnerViewFiles">View Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerSearchFiles">Search Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPublicKey">Request Public Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPublicKey">Public Key Response </a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPrivateKey">Request Private Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPrivateKey">Private Key Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqTrapdoor">Generating Trapdoors </a></li>
+                                    <li><a href="/CPABSEApp/OwnerResTrapdoor">Trapdoors Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerDownloadFile">Download File </a></li>
+                                    <li><a href="/CPABSEApp/OwnerPuncturableFile">Puncturable Files </a></li>
+                                    <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

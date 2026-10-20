@@ -1,0 +1,136 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+
+{% load ctags %}
+
+{% block title %}View File Details{% endblock %}
+
+{% block Bodycss %}device_body{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style21 {font-size: 14px}
+            .style26 {font-size: 12px}
+            .style27 {font-size: 14px; color: #712B77; }
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/IoTHome">IoT Device</a></li>
+                <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">View Files</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <table width="575" border="1.5" cellpadding="0" cellspacing="0" align="center">
+                                    {% if askQuery %}
+                                        {% for row in askQuery %}
+                                            <tr>
+                                                <td width="170" height="40"><div align="center" class="style21 style2">
+                                                    <div align="left"><strong>&nbsp;ID</strong></div></div></td>
+                                                <td width="400"><label>
+                                                    <input name="txtId" type="text" value="{{ row.id }}" size="50" class="box" readonly="true" /></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;File Name</strong></div></div></td>
+                                                <td><input name="txtfname" type="text" value="{{ row.FileName }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="182"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;File Contents</strong></div></div></td>
+                                                <td><label>
+                                                    {% getcontents row.id  as Contents %}
+                                                    <textarea rows="10" cols="52" name="textarea" readonly="true" class="box">{{ Contents }}</textarea></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;Keywords</strong></div></div></td>
+                                                <td><input name="txtkeyword" type="text" value="{{ row.Keyword }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;Public Key</strong></div></div></td>
+                                                <td><input name="txtpublickey" type="text" value="{{ row.PublicKey }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;Rank</strong></div></div></td>
+                                                <td><input name="txtrank" type="text" value="{{ row.Ranks }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;Date &amp; Time</strong></div></div></td>
+                                                {% getdate row.id  as udate %}
+                                                <td><input name="txtdate" type="text" value="{{ udate }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style27">
+                                                    <div align="left"><strong>&nbsp;IoT Device</strong></div></div></td>
+                                                <td><input name="txtdevice" type="text" value="{{ row.IoTDevice }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                                <p align="right">&nbsp;</p>
+                                <p align="right"><a href="/CPABSEApp/ViewFiles">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/UploadFile">Upload Files</a></li>
+                                    <li><a href="/CPABSEApp/VerifyFiles">Verify Files</a></li>
+                                    <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

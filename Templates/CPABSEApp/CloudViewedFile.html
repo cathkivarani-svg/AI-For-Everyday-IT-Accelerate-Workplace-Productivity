@@ -1,0 +1,130 @@
+{% extends "CPABSEApp/baseDevice.html" %}
+{% load static %}
+
+{% load ctags %}
+
+{% block title %} View File Information{% endblock %}
+
+{% block Bodycss %} cloud_body {% endblock %}
+
+{% block content %}
+
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px; color: #F26624}
+            .style2 {font-size: 14px; font-weight: bold; }
+            .style3 {font-size: 14px; font-weight: bold; color: #712B77; }
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/CloudHome">Cloud Server</a>
+                </li>
+                <li><a href="/CPABSEApp/CloudLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" value="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">View File Details</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <table width="575" border="1.5" cellpadding="0" cellspacing="0" align="center">
+                                    {% if askQuery %}
+                                        {% for row in askQuery %}
+                                            <tr>
+                                                <td width="170" height="40"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;ID</strong></div></div></td>
+                                                <td width="400"><label>
+                                                    <input type="text" name="txtId" value="{{ row.id }}" size="50" class="box" readonly="true" /></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;File Name</strong></div></div></td>
+                                                <td><input type="text" name="txtfname" value="{{ row.FileName }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="182"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;File Contents</strong></div></div></td>
+                                                <td><label>
+                                                    <textarea rows="10" cols="52" name="textarea" class="box" readonly="true">{{ row.FileContent }}</textarea></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;Keywords</strong></div></div></td>
+                                                <td><input type="text" name="txtkeyword" value="{{ row.Keyword }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;Rank</strong></div></div></td>
+                                                <td><input type="text" name="txtrank" value="{{ row.Ranks }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;Date &amp; Time</strong></div></div></td>
+                                                {% getdate row.id  as udate %}
+                                                <td><input type="text" name="txtdate" value="{{ udate }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="40"><div align="center" class="style3">
+                                                    <div align="left"><strong>&nbsp;IoT Device</strong></div></div></td>
+                                                <td><input type="text" name="txtdevice" value="{{ row.IoTDevice }}" size="50" class="box" readonly="true" /></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                                <p>&nbsp;</p>
+                                <p align="right"><a href="/CPABSEApp/CloudOwnerFiles">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/CloudHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/CloudViewIoTDevice">View IoT Devices</a></li>
+                                    <li><a href="/CPABSEApp/CloudViewOwners">View Owners</a></li>
+                                    <li><a href="/CPABSEApp/CloudLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

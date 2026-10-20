@@ -1,0 +1,123 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+
+{% block title %}Verified Files{% endblock %}
+
+{% block Bodycss %}device_body{% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        function RecoverFile(filename)
+        {
+            if(confirm('Are Your Sure Verify File?'))
+            {
+                window.location='/CPABSEApp/RecoverFiles/'+filename
+            }
+        }
+    </script>
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style21 {font-size: 14px}
+            .style23 {color: #666666; font-weight: bold;}
+            .style24 {color: #3c763d; font-size: 26px;}
+            .style30 {color: #ff0000; font-size: 26px; }
+            .style31 {font-size: 20px}
+            .style32 {font-size: 18px}
+            .style33 {font-size: 12px}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/IoTHome">IoT Device</a>
+                </li>
+                <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Recover Status</a></h2>
+                            <div class="entry">
+                                <p>
+                                    {% if askQuery %}
+                                        {% for row in askQuery %}
+                                            {% if row.D1Address == row.D2Address %}
+                                                </p>
+                                                <p>&nbsp;</p>
+                                                <h3 class="style24 style29">File Is Safe !! </h3>
+                                                <p><br/>
+                                                    <a href="/CPABSEApp/VerifyFiles">Back</a>
+                                                </p>
+                                            {% else %}
+                                                <p>&nbsp; </p>
+                                                <h3 class="style30">File Is Not Safe !! </h3>
+                                                <h3 class="style1"><br/>
+                                                    <a href=javascript:RecoverFile('{{ FileName }}')> Click Here...</a>
+                                                    <span class="style31"><span class="style24"> To Recover File.</span></span>
+                                                </h3>
+			                                    <p class="style1"><a href="/CPABSEApp/VerifyFiles" class="style33">Back</a></p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <h3 class="style24 style29">File Does Not Exists !! </h3>
+                                        <p><br/>
+                                        <a href="/CPABSEApp/VerifyFiles">Back</a>
+                                    {% endif %}
+                                <p>&nbsp;</p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/UploadFile">Upload Files</a></li>
+                                    <li><a href="/CPABSEApp/ViewFiles">View My Files</a></li>
+                                    <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

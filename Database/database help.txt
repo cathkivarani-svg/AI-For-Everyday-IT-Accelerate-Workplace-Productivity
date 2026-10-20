@@ -1,0 +1,16 @@
+data type changed 
+
+Table: IoTDeviceFiles
+	FileContent	varbinary(5000)	
+
+Table: DataStorage
+	FileContent	varbinary(5000)
+	UDate	varbinary(500)	
+
+create database CPABSE;
+use CPABSE;
+alter table IoTDeviceFiles modify FileContent varbinary(5000);
+alter table DataStorage modify FileContent varbinary(5000);
+alter table DataStorage modify UDate varbinary(500);
+insert into CloudServer values(1,'cloud','cloud');
+insert into kgc values(1,'kgc','kgc');

@@ -1,0 +1,96 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+
+{% block title %}IoT Device Home{% endblock %}
+
+{% block Bodycss %}device_body{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/IoTHome">IoT Device</a>
+                </li>
+                <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            {% if request.session %}
+                                <h2 class="title"><a href="#">Welcome <b
+                                        style="text-transform: capitalize">{{ sessionIoT }}</b> </a></h2>
+                            {% endif %}
+                            <div class="sidebar clear">
+                                <div class="Semisidebar clear">
+                                    {% if regIoT %}
+                                        {% for IoT in regIoT %}
+                                            <img style="margin:2% auto auto 2%;border:3px solid black;border-radius:20px;width:250px;height:220px"
+                                                 src="{{ IoT.ProfileImg }}">
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="entry">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IoT (Internet of Things) devices are embedded systems equipped with sensors, processing units, and communication modules that collect data from the physical world and transmit it over a network for monitoring, analysis, and control. IoT devices are responsible for sensing, generating, and forwarding raw data to the Data Owner (DO).<br/><br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IoT devices is a series of IoT devices (e.g., smart home device, smart clinic device, or smart industry
+                                device) that are managed by the DO. They are responsible for generating or collecting the data. Dev encrypts the data using some tags and keywords with access structure and sends the ciphertext to the CS.
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/UploadFile">Upload Files</a></li>
+                                    <li><a href="/CPABSEApp/VerifyFiles">Verify Files</a></li>
+                                    <li><a href="/CPABSEApp/ViewFiles">View My Files</a></li>
+                                    <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

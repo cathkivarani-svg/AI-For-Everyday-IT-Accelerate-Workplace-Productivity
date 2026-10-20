@@ -1,0 +1,188 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+
+{% block title %} IoT Registration {% endblock %}
+
+{% block Bodycss %}device_body{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li><span><a href="/CPABSEApp">Home</a></span></li>
+                <li class="current_page_item"><a href="/CPABSEApp/IoTLogin">IoT Device</a></li>
+                <li><a href="/CPABSEApp/OwnerLogin">Data Owner</a></li>
+                <li><a href="/CPABSEApp/KgcLogin">KGC</a></li>
+                <li><a href="/CPABSEApp/CloudLogin">Cloud Server</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <table width="500" border="0" cellspacing="2" cellpadding="2">
+                                <tr align="center">
+                                    <td width="500"><h2 class="title"><a href="#">IoT Device Register</a></h2></td>
+                                </tr>
+                            </table>
+                            <div class="entry">
+                                <form action="/CPABSEApp/IoTRegister/" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <table width="500" border="0" cellspacing="2" cellpadding="2">
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="name">IoT User Name (Required)</label>
+                                            </td>
+                                            <td>
+                                                <input required="required" id="userid" name="userid" class="box" style="width: 272px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="password">Password (Required)</label></td>
+                                            <td>
+                                                <input required="required" type="password" id="pass" name="pass" class="box" style="width: 272px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="name">IoT Device Name (Required)</label>
+                                            </td>
+                                            <td>
+                                                <input required="required" id="iot_name" name="iot_name" class="box" style="width: 272px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="email">Email Address (Required)</label>
+                                            </td>
+                                            <td>
+                                                <input type="email" id="email" name="email" class="box" style="width: 272px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="address">Your Address</label>
+                                            </td>
+                                            <td>
+                                                <textarea id="address" name="address" cols="33" rows="4" class="box"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="pincode">Enter Pin Code (Required)</label>
+                                            </td>
+                                            <td>
+                                                <input required="required" id="pincode" name="pincode" class="box" style="width: 272px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="iot_type">Enter Device Type (Required)</label>
+                                            </td>
+                                            <td>
+                                                <select id="iot_type" name="iot_type" class="box" style="width: 280px;">
+                                                    <option>-Select Device Type-</option>
+                                                    <option>Healthcare</option>
+                                                    <option>Transportation</option>
+                                                    <option>Smart Homes</option>
+                                                    <option>Smart Industry</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px;">
+                                            <td>
+                                                <label for="pic">Profile Picture (Required)</label>
+                                            </td>
+                                            <td>
+                                                <input type="file" id="imgFile" name="imgFile" class="box" style="width: 272px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 75px;">
+                                            <td colspan="2" align="center">
+                                                {% if messages %}
+                                                    <div class="message_display">
+                                                        {% for message in messages %}
+                                                            {% if message.tags %}
+                                                                <p align="center" class="{{ message.tags }}">{{ message }}</p>
+                                                                <script>
+                                                                    alert("{{ message }}")
+                                                                </script>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 50px;">
+                                            <td colspan="2" align="center">
+                                                <input name="submit" type="submit" value="REGISTER"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="500" border="0" cellspacing="2" cellpadding="2">
+                                        <tr>
+                                            <td width="500">
+                                                <div align="left" class="style28">
+                                                    <p align="right"><a href="/CPABSEApp/IoTLogin">Back</a></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTLogin">IoT Device</a></li>
+                                    <li><a href="/CPABSEApp/OnerLogin">Data Owner</a></li>
+                                    <li><a href="/CPABSEApp/KgcLogin">KGC</a></li>
+                                    <li><a href="/CPABSEApp/CloudLogin">Cloud Server</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

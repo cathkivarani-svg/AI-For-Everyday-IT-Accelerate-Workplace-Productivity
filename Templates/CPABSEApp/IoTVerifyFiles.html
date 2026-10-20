@@ -1,0 +1,134 @@
+{% extends "CPABSEApp/base.html" %}
+{% load static %}
+{% load ctags %}
+{% block title %}Verify Files{% endblock %}
+
+{% block Bodycss %}device_body{% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        function VerifyFile(filename)
+        {
+            if(confirm('Are Your Sure Verify File?'))
+            {
+                window.location='/CPABSEApp/VerifiedFiles/'+filename
+            }
+        }
+    </script>
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style21 {font-size: 14px}
+            .style23 {color: #ac2925; font-weight: bold;}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/IoTHome">IoT Device</a></li>
+                <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Verify Files</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <table width="550" border="1.5" align="center" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="47" height="30">
+                                            <div align="center" class="style21"><span class="style23"> ID </span></div>
+                                        </td>
+                                        <td width="108">
+                                            <div align="center" class="style21"><span class="style23">File Name</span></div>
+                                        </td>
+                                        <td width="123">
+                                            <div align="center" class="style21"><span class="style23">IoT Device</span></div>
+                                        </td>
+                                        <td width="116">
+                                            <div align="center" class="style21"><span class="style23">Date &amp; Time</span></div>
+                                        </td>
+                                        <td width="125">
+                                            <div align="center" class="style21"><span class="style23">File Status</span></div>
+                                        </td>
+                                    </tr>
+                                    {% if askQuery %}
+                                        {% for row in askQuery %}
+                                            <tr>
+                                                <td height="28">
+                                                    <div align="center">{{ row.id }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center">{{ row.FileName }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center">{{ row.IoTDevice }}</div>
+                                                </td>
+                                                <td>
+                                                    {% getdate row.id  as udate %}
+                                                    <div align="center"> {{ udate }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center">
+                                                        <a href=javascript:VerifyFile('{{ row.FileName }}')> Verify...</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                                <p>&nbsp;</p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/UploadFile">Upload Files</a></li>
+                                    <li><a href="/CPABSEApp/ViewFiles">View My Files</a></li>
+                                    <li><a href="/CPABSEApp/IoTLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

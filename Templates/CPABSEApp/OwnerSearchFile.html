@@ -1,0 +1,111 @@
+{% extends "CPABSEApp/baseUser.html" %}
+{% load static %}
+
+{% block title %} Owner Search Files{% endblock %}
+
+{% block Bodycss %}owner_body{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style15 {color: #fff;
+                      font-weight: bold;
+            }
+            .style16 {	font-size: 12px;
+                       color: #6d6d6d;
+            }
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/OwnerHome">Data Owner</a>
+                </li>
+                <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Search Files</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <form action="/CPABSEApp/OwnerSearchFiles/" method="post">
+                                    {% csrf_token %}
+                                    <p>&nbsp;</p>
+                                    <p align="center" class="style15">&nbsp;</p>
+                                    <table width="500" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                        <tr>
+                                            <th><div align="left"><span class="style30">Enter The Keyword To Search</span></div></th>
+                                            <td><span class="style15"><input type="text" name="txtKeyword" placeholder="Keyword" size="30" class="box" required="required" /></span></td>
+                                        </tr>
+                                    </table>
+                                    <p align="center" class="style15">&nbsp;</p>
+                                    <p align="center">
+                                        <input type="submit" name="Submit2" value="SEARCH" />
+                                    </p>
+                                </form>
+                                <p>&nbsp;</p>
+                                <p align="right"><a href="/CPABSEApp/OwnerHome">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/OwnerHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/OwnerProfile">My Profile</a></li>
+                                    <li><a href="/CPABSEApp/OwnerViewFiles">View Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPublicKey">Request Public Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPublicKey">Public Key Response </a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPrivateKey">Request Private Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPrivateKey">Private Key Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqTrapdoor">Generating Trapdoors </a></li>
+                                    <li><a href="/CPABSEApp/OwnerResTrapdoor">Trapdoors Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerDownloadFile">Download File </a></li>
+                                    <li><a href="/CPABSEApp/OwnerPuncturableFile">Puncturable Files </a></li>
+                                    <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

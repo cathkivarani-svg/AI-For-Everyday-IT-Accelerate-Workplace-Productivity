@@ -1,0 +1,153 @@
+{% extends "CPABSEApp/baseDevice.html" %}
+{% load static %}
+
+{% block title %} View IoT Devices{% endblock %}
+
+{% block Bodycss %} kgc_body {% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        function VerifyDevice(id)
+        {
+            if(confirm('Are Your Sure Verify IoT Device?'))
+            {
+                window.location='/CPABSEApp/KgcVerifyDevices/'+id
+            }
+        }
+    </script>
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style7 {font-size: 14px; font-weight: bold; }
+            .style3 {font-size: 14px; font-weight: bold; color: #F26624; }
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/KgcHome">KGC</a>
+                </li>
+                <li><a href="/CPABSEApp/KgcLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">View IoT Devices</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <table width="600" border="1.5" align="center" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="50" height="30">
+                                            <div align="center" class="style2"><span class="style3"> ID </span></div>
+                                        </td>
+                                        <td width="110">
+                                            <div align="center" class="style2"><span class="style3">IoT Device Image</span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">Device Name</span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">Email Address</span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">Device Type</span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">Address</span></div>
+                                        </td>
+                                        <td width="100">
+                                            <div align="center" class="style2"><span class="style3">Status</span></div>
+                                        </td>
+                                    </tr>
+                                    {% if askQuery %}
+                                        {% for row in askQuery %}
+                                            <tr>
+                                                <td height="28">
+                                                    <div align="center">{{ row.id }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center"><img style="margin:2% auto auto 2%;border:1px solid black;border-radius:20px;width:100px;height:100px" src="{{ row.ProfileImg }}"></div>
+                                                </td>
+                                                <td>
+                                                    <div align="center">{{ row.UserName }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center"> {{ row.Email }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center"> {{ row.DeviceType }}</div>
+                                                </td>
+                                                <td>
+                                                    <div align="center"> {{ row.Address }}</div>
+                                                </td>
+                                                <td>
+                                                    {% if row.Status == "Waiting" %}
+                                                        <div align="center"><a href=javascript:VerifyDevice({{ row.id }})> {{ row.Status }}...</a></div>
+                                                    {% else %}
+                                                        <div align="center"> {{ row.Status }}</div>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                                <p>&nbsp;{{ ans }}</p>
+                                <p align="right"><a href="/CPABSEApp/KgcHome">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/KgcHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/KgcViewOwners">View Owners</a></li>
+                                    <li><a href="/CPABSEApp/KgcOwnerFiles">Owner Files</a></li>
+                                    <li><a href="/CPABSEApp/KgcFilesWithPublicKey">Files With Public Key</a></li>
+                                    <li><a href="/CPABSEApp/KgcPublicKeyPermission">Public Key Permission</a></li>
+                                    <li><a href="/CPABSEApp/KgcGeneratePrivateKey">Generate Private Key</a></li>
+                                    <li><a href="/CPABSEApp/KgcGenerateTrapdoor">Generate Trapdoors</a></li>
+                                    <li><a href="/CPABSEApp/KgcLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

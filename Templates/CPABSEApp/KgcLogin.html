@@ -1,0 +1,110 @@
+{% extends "CPABSEApp/baseDevice.html" %}
+{% load static %}
+
+{% block title %} Key Generation Center Login {% endblock %}
+
+{% block Bodycss %} kgc_body {% endblock %}
+
+{% block content %}
+
+    <style type="text/css">
+            <!--
+            .style1 {color: #0000FF}
+            .style2 {font-size: 24px}
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li><span><a href="/CPABSEApp">Home</a></span></li>
+                <li><a href="/CPABSEApp/IoTLogin">IoT Device</a></li>
+                <li><a href="/CPABSEApp/OwnerLogin">Data Owner</a></li>
+                <li class="current_page_item"><a href="/CPABSEApp/KgcLogin">KGC</a></li>
+                <li><a href="/CPABSEApp/CloudLogin">Cloud Server</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" placeholder="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Key Generation Center Login </a></h2>
+                            <div class="entry">
+                                <form action="/CPABSEApp/KgcLogin/" method="post">
+                                    {% csrf_token %}
+                                    <label for="uname"><br/>
+                                        User Name (Required)&nbsp;</label>
+                                    <input name="userid" type="text" class="box" id="userid" value=""/>
+                                    <label for="pwd"><br/>
+                                        <br/>
+                                        Password (Required)&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input type="password" id="pass" name="pass" class="box"/>
+                                    <p>&nbsp;</p>
+                                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input name="imageField" type="submit" class="LOGIN" id="imageField" value="Login"/>
+                                        <input type="reset" name="imageField" id="imageField" class="RESET"/>
+                                    </p>
+                                    <p>&nbsp;</p>
+                                    {% if messages %}
+                                        <div class="message_display">
+                                            {% for message in messages %}
+                                                {% if message.tags %}
+                                                    <p align="center" class="{{ message.tags }}">{{ message }}</p>
+                                                    <script>
+                                                        alert("{{ message }}")
+                                                    </script>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/IoTLogin">IoT Device</a></li>
+                                    <li><a href="/CPABSEApp/OwnerLogin">Data User </a></li>
+                                    <li><a href="/CPABSEApp/KgcLogin">KGC</a></li>
+                                    <li><a href="/CPABSEApp/CloudLogin">Cloud Server</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}

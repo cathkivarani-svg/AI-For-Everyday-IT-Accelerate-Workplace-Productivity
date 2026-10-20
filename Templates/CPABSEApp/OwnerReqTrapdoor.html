@@ -1,0 +1,124 @@
+{% extends "CPABSEApp/baseUser.html" %}
+{% load static %}
+
+{% block title %} Generating Trapdoors {% endblock %}
+
+{% block Bodycss %}owner_body{% endblock %}
+
+{% block content %}
+    <style type="text/css">
+            <!--
+            .style1 {font-size: 24px}
+            .style2 {color: #712B77}
+            .style3 {font-size: 14px}
+            .style4 {font-size: 20px; color: #305CDE; font-weight: bold;}
+            .style5 {font-size: 14px; font-weight: bold; }
+            -->
+        </style>
+    <div id="wrapper">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="/CPABSEApp/OwnerHome">Data Owner</a>
+                </li>
+                <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+            </ul>
+        </div>
+        <!-- end #menu -->
+        <div id="header">
+            <div id="logo">
+                <h1><img src="{% static "Images/Key2.gif" %}" width="700" height="50"></img></h1>
+            </div>
+            <div id="search">
+                <form method="get" action="">
+                    <fieldset>
+                        <input type="text" name="s" id="search-text" size="15" value="enter keywords here..."/>
+                        <input type="submit" id="search-submit" value="GO"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="splash">&nbsp;</div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="content">
+                        <div class="post">
+                            <h2 class="title"><a href="#">Request Generating Trapdoors</a></h2>
+                            <div class="entry">
+                                <p>&nbsp;</p>
+                                <form action="/CPABSEApp/OwnerReqTrapdoor/" method="post">
+                                    {% csrf_token %}
+                                    <p align="center" class="style15">&nbsp;</p>
+                                    {% if Message %}
+                                        <h1 class="style4">{{ Message }}</h1>
+                                    {% else %}
+                                    <table width="500" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                        <tr>
+                                            <td width="223"><span class="style5">Enter IoT Device Name :-</span></td>
+                                            <td width="245"><label>
+                                                <input type="text" name="iot_device" value="" size="40" class="box" placeholder="IoT Device Name" required="required" /></label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="34"><span class="style5">Enter File Name :-</span></td>
+                                            <td><input type="text" name="filename" value="" size="40" class="box" placeholder="File Name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div align="right"><span class="style3"></span></div></td>
+                                            <td><span class="style3"><label><input type="submit" name="Submit" value="Gen Trapdoors" /></label></span></td>
+                                        </tr>
+                                    </table>
+                                    {% endif %}
+                                    <p align="center" class="style15">&nbsp;</p>
+                                </form>
+                                <p align="right"><a href="/CPABSEApp/OwnerHome">Back</a></p>
+                            </div>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div id="sidebar">
+                        <ul>
+                            <li></li>
+                            <li>
+                                <h2>Menu</h2>
+                                <ul>
+                                    <li><a href="/CPABSEApp/OwnerHome">Home</a></li>
+                                    <li><a href="/CPABSEApp/OwnerProfile">My Profile</a></li>
+                                    <li><a href="/CPABSEApp/OwnerViewFiles">View Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerSearchFiles">Search Files</a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPublicKey">Request Public Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPublicKey">Public Key Response </a></li>
+                                    <li><a href="/CPABSEApp/OwnerReqPrivateKey">Request Private Key</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResPrivateKey">Private Key Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerResTrapdoor">Trapdoors Response</a></li>
+                                    <li><a href="/CPABSEApp/OwnerDownloadFile">Download File </a></li>
+                                    <li><a href="/CPABSEApp/OwnerPuncturableFile">Puncturable Files </a></li>
+                                    <li><a href="/CPABSEApp/OwnerLogout/">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p>Copyright &copy; {% now "Y" %} AI For Everyday IT Accelerate Workplace Productivity.</p>
+        </div>
+        <!-- end #footer -->
+    </div>
+{% endblock %}
